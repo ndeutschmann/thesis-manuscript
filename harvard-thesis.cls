@@ -25,7 +25,8 @@
 \RequirePackage{amssymb}
 \RequirePackage[numbers, comma, sort&compress]{natbib}
 \RequirePackage[small, bf, sc]{titlesec}
-\RequirePackage[tight,nice]{units}
+%\RequirePackage[tight,nice]{units}
+\RequirePackage[squaren,Gray]{SIunits}
 \RequirePackage{verbatim}
 \RequirePackage{url}
 
@@ -33,31 +34,31 @@
 %Begin Andy's package additions
 \usepackage{pdfsync} %do pdf synchronization [andy]
 \usepackage[closeFloats, noSeparatorLine]{packages/fltpage} %use the custom modified fltpage package
-\RequirePackage{afterpage} 
+\RequirePackage{afterpage}
 
 
 
 
 
- 
 
 
-\synctex=1 % turn synctex on automatically to sync between pdf viewer [andy]
+
+%\synctex=1 % turn synctex on automatically to sync between pdf viewer [andy]
 
 %   list an entire bibliography entry inline. Useful for acknowledging when my paper was previously published
-\usepackage{bibentry} 
-\nobibliography*        
+\usepackage{bibentry}
+\nobibliography*
 %End Andy's package additions
 
 \RequirePackage{lettrine}%big letter at start of chapter
-\RequirePackage[width=5in, letterpaper]{geometry}
+\RequirePackage[width=6in, letterpaper]{geometry}
 
 
-\RequirePackage{fancyhdr} 
+\RequirePackage{fancyhdr}
 \pagestyle{plain} % options: empty , plain , fancy
 \RequirePackage[palatino]{quotchap}
 \RequirePackage{titling}
-\RequirePackage{setspace} 
+\RequirePackage{setspace}
 \RequirePackage{booktabs} % for much better looking tables
 \RequirePackage[labelfont={sf,bf,small},textfont={sf,small},justification=RaggedRight,margin=0pt, figurewithin=section, tablewithin=section]{caption}
 \onehalfspacing
@@ -68,23 +69,24 @@
 
 
 % Instead of using default latex for math fonts, we can be fancy and try to adapt Chaparral Pro.. --ANDY
-\setmathsfont(Digits,Latin,Greek)[Numbers={OldStyle,Proportional}]{Chaparral Pro}
+\setmathsfont(Digits,Latin)[Numbers={OldStyle,Proportional}]{Chaparral Pro}
 \setmathrm{Chaparral Pro}  %I added this to handle \mathbf
 
 %Use this if you want math fonts that are slightly better than default Latex
 %\setmathfont{Cambria Math}
 
-\RequirePackage{fontspec,xltxtra,xunicode}
+\RequirePackage{fontspec,xltxtra,xunicode}%xltxtra,
 \defaultfontfeatures{Mapping=tex-text, Numbers=OldStyle}
-\setromanfont[Mapping=tex-text, Numbers=OldStyle, Ligatures={{Historic,Contextual,Rare}}]{Chaparral Pro} % Contextuals=Swash, Ligatures={{Historic,Contextual,Rare}}
+\setromanfont[Mapping=tex-text, Numbers=OldStyle]{Chaparral Pro} % Contextuals=Swash, Ligatures={{Historic,Contextual,Rare}}
 
 
 
 %Set fonts for Mac Specific (Comment out on Windows XP)
-%\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Helvetica Neue} 
+\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Helvetica Neue}
 %\setmonofont[Scale=MatchLowercase]{Consolas}
 
 % some definitions
+\def\frenchtitle#1{\gdef\@frenchtitle{#1}}
 \def\degreeyear#1{\gdef\@degreeyear{#1}}
 \def\degreemonth#1{\gdef\@degreemonth{#1}}
 \def\degree#1{\gdef\@degree{#1}}
@@ -95,27 +97,35 @@
 \def\universitycity#1{\gdef\@universitycity{#1}}
 \def\universitystate#1{\gdef\@universitystate{#1}}
 
+%Avoid clutter when writing: definition
+\newif\iffull
+%Set to true for dedication etc. pages, false to get rid of them
+\fullfalse
 
-\renewcommand{\maketitle}{ 
-\thispagestyle{empty}\vspace*{\fill} 
+\setcounter{tocdepth}{1}
+
+\renewcommand{\maketitle}{
+\thispagestyle{empty}\vspace*{\fill}
 	\begin{center}
 	\huge \thetitle \normalsize \\ \vspace{100pt}
 	A dissertation presented \\ by\\
-	\theauthor\\ to\\ The \@department\\ 
-	in partial fulfillment of the requirements\\ 
-	for the degree of\\ \@degree\\ 
+	\theauthor\\ to\\ The \@department\\
+	in partial fulfillment of the requirements\\
+	for the degree of\\ \@degree\\
 	in the subject of\\ \@field\\
 	\vspace{24pt}
-	\@university\\ \@universitycity, \@universitystate\\ 
+	\@university\\ \@universitycity, \@universitystate\\
 	\@degreemonth\ \@degreeyear
 	\end{center} \vspace*{\fill}
-} 
+}
 
 \newcommand{\copyrightpage}{
+	\iffull
 	\newpage \thispagestyle{empty} \vspace*{\fill}
 	\noindent \copyright~\textit{\@degreeyear ~-\theauthor}  \\
 	All rights reserved.
 	\vspace*{\fill} \newpage \rm
+	\fi
 }
 
 
@@ -127,56 +137,63 @@
 	\pagenumbering{roman}
 	\setcounter{page}{3}
 	\pagestyle{fancy}
-	\lhead{\@advisor} \rhead{\@author}
-	\renewcommand{\headrulewidth}{0.0pt} 
+%	\lhead{\@advisor} \rhead{\@author}
+	\renewcommand{\headrulewidth}{0.0pt}
 	\begin{center}
-	\Large \@title \normalsize \\
+	\Large \@frenchtitle \normalsize \\
 	\vspace{20pt}
-	\sc Abstract \\ \rm
+	\sc Résumé en français \\\rm
 	\end{center}
-	\begin{doublespace} %Harvard registrar requests that abstract is double spaced
+%	\begin{doublespace} %Harvard registrar requests that abstract is double spaced
 	\input{frontmatter/abstract}
-	\end{doublespace}
+%	\end{doublespace}
 	\newpage \lhead{} \rhead{}
 	\cfoot{\thepage}
 }
 
 \newcommand{\dedicationpage}{
+	\iffull
 	\pagestyle{fancy}
 	\newpage \thispagestyle{fancy} \vspace*{\fill}
 	\sc \noindent \input{frontmatter/dedication}
 	\vspace*{\fill} \newpage \rm
+	\fi
 	}
 
 	\newcommand{\authorlist}{
+	\iffull
 		\pagestyle{fancy}
-\thispagestyle{fancy} 
+\thispagestyle{fancy}
 		\section*{Author List}
 		\noindent \input{frontmatter/authorlist}
 		\newpage \rm
+		\fi
 		}
 
 
 \newcommand{\acknowledgments}{
+	\iffull
 %	\vspace*{\fill} %This has to be removed, otherwise you get an additional empty page
 	\section*{Acknowledgments}
 	\noindent
 	\input{frontmatter/thanks}
 	\vspace*{\fill} \newpage
+	\fi
 	\setcounter{page}{1}
-	\pagenumbering{arabic}}
+	\pagenumbering{arabic}
+}
 
 
-	
+
 % An environment for paragraph-style section
 
 \providecommand\newthought[1]{%
    \addvspace{1.0\baselineskip plus 0.5ex minus 0.2ex}%
    \noindent\textsc{#1}%
 }
-	
-	
-%Andys Spacing 
+
+
+%Andys Spacing
 %Be more forgiving, and stretch word spacing out more so that wormds don't run out into the margins..
 \emergencystretch=1.5em
 %End Andy Spacing
@@ -195,6 +212,3 @@
 \counterwithout{table}{part}
 \counterwithout{table}{section}
 \counterwithin{table}{chapter}
-
-
-

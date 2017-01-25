@@ -1,0 +1,5 @@
+*.log
+*.aux
+*.pdfsync
+thesis.out
+thesis.toc
