@@ -3,3 +3,10 @@
 *.pdfsync
 thesis.out
 thesis.toc
+*.ipynb
+wordcount.txt
+.latexmkrc
+thesis.bbl
+thesis.blg
+thesis.fdb_latexmk
+thesis.fls

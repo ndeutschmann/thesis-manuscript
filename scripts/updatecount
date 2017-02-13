@@ -1,0 +1,4 @@
+#!/bin/bash
+today=$(date +%Y-%m-%d:%H:%M:%S)
+count=$(scripts/texcount.pl -sum -brief -merge thesis.tex |cut -d":" -f1)
+echo $today $count >> scripts/wordcount.txt

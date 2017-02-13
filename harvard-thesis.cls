@@ -51,7 +51,7 @@
 %End Andy's package additions
 
 \RequirePackage{lettrine}%big letter at start of chapter
-\RequirePackage[width=6in, letterpaper]{geometry}
+\RequirePackage[width=16cm,height=23cm, a4paper]{geometry}
 
 
 \RequirePackage{fancyhdr}
@@ -69,7 +69,7 @@
 
 
 % Instead of using default latex for math fonts, we can be fancy and try to adapt Chaparral Pro.. --ANDY
-\setmathsfont(Digits,Latin)[Numbers={OldStyle,Proportional}]{Chaparral Pro}
+\setmathsfont(Digits,Latin,Greek)[Numbers={OldStyle,Proportional}]{Chaparral Pro} %
 \setmathrm{Chaparral Pro}  %I added this to handle \mathbf
 
 %Use this if you want math fonts that are slightly better than default Latex
