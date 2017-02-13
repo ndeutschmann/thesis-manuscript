@@ -97,6 +97,7 @@
 \def\universitycity#1{\gdef\@universitycity{#1}}
 \def\universitystate#1{\gdef\@universitystate{#1}}
 
+% IF FULL
 %Avoid clutter when writing: definition
 \newif\iffull
 %Set to true for dedication etc. pages, false to get rid of them
